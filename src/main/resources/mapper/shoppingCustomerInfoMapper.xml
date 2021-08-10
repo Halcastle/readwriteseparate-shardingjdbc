@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geekStudy.week7.mapper.ShoppingCustomerInfoMapper">
+    <select id="findAll" resultType="ShoppingCustomerInfo">
+        SELECT * FROM shopping_customer_info
+    </select>
+    <select id="findBySerialno" parameterType="String" resultType="ShoppingCustomerInfo">
+        SELECT * FROM shopping_customer_info where id = #{id}
+    </select>
+
+    <insert id="insertCustomer" parameterType="ShoppingCustomerInfo">
+        insert into shopping_customer_info(name,gender,phone,address,photourl,status) value (#{name},#{gender},#{phone},#{address},#{photourl},#{status})
+    </insert>
+
+    <update id="updateCustomerBySerialno" parameterType="ShoppingCustomerInfo">
+    update shopping_customer_info
+    set
+    name = #{name},
+    gender = #{gender},
+    address = #{address},
+    photourl = #{photourl},
+    status = #{status}
+    where
+    id = #{id}
+</update>
+</mapper>
+
+<!-- 
+1.namespace中需要与使用@Mapper的接口对应
+2.UserMapper.xml文件名称必须与使用@Mapper的接口一致
+3.标签中的id必须与@Mapper的接口中的方法名一致，且参数一致
+-->
