@@ -49,7 +49,7 @@ public class ReadWriteService {
     }
 
     public int masterInsert(){
-        logger.info("使用maser数据源插入数据");
+        logger.info("插入数据");
         ShoppingCustomerInfo customerInfo = new ShoppingCustomerInfo();
         customerInfo.setName("330630");
         customerInfo.setAddress("address30");
@@ -58,12 +58,12 @@ public class ReadWriteService {
         customerInfo.setPhotourl("./30");
         customerInfo.setStatus("1");
         int num = shoppingCustomerInfoService.insertCustomer(customerInfo);
-        logger.info("----maser数据源插入数据量： {}----",num);
+        logger.info("----插入数据量： {}----",num);
         return num;
     }
 
     public int slave1Insert(){
-        logger.info("使用slave1数据源插入数据");
+        logger.info("插入数据");
         ShoppingCustomerInfo customerInfo = new ShoppingCustomerInfo();
         customerInfo.setName("331630");
         customerInfo.setAddress("address30");
@@ -72,12 +72,12 @@ public class ReadWriteService {
         customerInfo.setPhotourl("./30");
         customerInfo.setStatus("1");
         int num = shoppingCustomerInfoService.insertCustomer(customerInfo);
-        logger.info("----slave1数据源插入数据量： {}----",num);
+        logger.info("----插入数据量： {}----",num);
         return num;
     }
 
     public int slave2Insert(){
-        logger.info("使用slave2数据源插入数据");
+        logger.info("插入数据");
         ShoppingCustomerInfo customerInfo = new ShoppingCustomerInfo();
         customerInfo.setName("332630");
         customerInfo.setAddress("address30");
@@ -86,12 +86,12 @@ public class ReadWriteService {
         customerInfo.setPhotourl("./30");
         customerInfo.setStatus("1");
         int num = shoppingCustomerInfoService.insertCustomer(customerInfo);
-        logger.info("----slave2数据源插入数据量： {}----",num);
+        logger.info("----插入数据量： {}----",num);
         return num;
     }
 
     public int slave3Insert(){
-        logger.info("使用slave3数据源插入数据");
+        logger.info("插入数据");
         ShoppingCustomerInfo customerInfo = new ShoppingCustomerInfo();
         customerInfo.setName("999");
         customerInfo.setAddress("address30");
@@ -100,7 +100,7 @@ public class ReadWriteService {
         customerInfo.setPhotourl("./30");
         customerInfo.setStatus("1");
         int num = shoppingCustomerInfoService.insertCustomer(customerInfo);
-        logger.info("----slave3数据源插入数据量： {}----",num);
+        logger.info("----插入数据量： {}----",num);
         return num;
     }
 
