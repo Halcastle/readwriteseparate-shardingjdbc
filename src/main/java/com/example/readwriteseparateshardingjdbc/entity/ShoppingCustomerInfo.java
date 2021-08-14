@@ -4,8 +4,9 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 public class ShoppingCustomerInfo {
-    private String id;
+    private Long id;
     private String name;
+    private String certid;
     private String gender;
     private String phone;
     private String address;
@@ -14,12 +15,12 @@ public class ShoppingCustomerInfo {
     private Timestamp inputdate;
     private Timestamp updatedate;
 
-    public String getId() {
-        return id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -28,6 +29,14 @@ public class ShoppingCustomerInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCertid() {
+        return certid;
+    }
+
+    public void setCertid(String certid) {
+        this.certid = certid;
     }
 
     public String getGender() {
@@ -93,6 +102,7 @@ public class ShoppingCustomerInfo {
         ShoppingCustomerInfo that = (ShoppingCustomerInfo) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
+                Objects.equals(certid, that.certid) &&
                 Objects.equals(gender, that.gender) &&
                 Objects.equals(phone, that.phone) &&
                 Objects.equals(address, that.address) &&
@@ -104,12 +114,12 @@ public class ShoppingCustomerInfo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, gender, phone, address, photourl, status, inputdate, updatedate);
+        return Objects.hash(id, name,certid, gender, phone, address, photourl, status, inputdate, updatedate);
     }
 
 	@Override
 	public String toString() {
-		return "ShoppingCustomerInfo [id=" + id + ", name=" + name
+		return "ShoppingCustomerInfo [id=" + id + ", name=" + name+ ", certid=" + certid
 				+ ", gender=" + gender + ", phone=" + phone + ", address="
 				+ address + ", photourl=" + photourl + ", status=" + status
 				+ ", inputdate=" + inputdate + ", updatedate=" + updatedate

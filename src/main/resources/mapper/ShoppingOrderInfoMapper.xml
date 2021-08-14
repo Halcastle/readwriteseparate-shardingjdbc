@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.readwriteseparateshardingjdbc.mapper.ShoppingOrderInfoMapper">
+  <resultMap id="BaseResultMap" type="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="customerid" jdbcType="BIGINT" property="customerid" />
+    <result column="initamount" jdbcType="DECIMAL" property="initamount" />
+    <result column="discountamount" jdbcType="DECIMAL" property="discountamount" />
+    <result column="freightcharge" jdbcType="DECIMAL" property="freightcharge" />
+    <result column="totalamount" jdbcType="DECIMAL" property="totalamount" />
+    <result column="modeofpayment" jdbcType="VARCHAR" property="modeofpayment" />
+    <result column="isenabled" jdbcType="VARCHAR" property="isenabled" />
+    <result column="inputdate" jdbcType="TIMESTAMP" property="inputdate" />
+    <result column="updatedate" jdbcType="TIMESTAMP" property="updatedate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customerid, initamount, discountamount, freightcharge, totalamount, modeofpayment, 
+    isenabled, inputdate, updatedate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_order_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shopping_order_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo" keyProperty="id" useGeneratedKeys="true">
+    insert into shopping_order_info (id, customerid, initamount, 
+      discountamount, freightcharge, totalamount, 
+      modeofpayment, isenabled, inputdate, 
+      updatedate)
+    values (#{id,jdbcType=BIGINT}, #{customerid,jdbcType=BIGINT}, #{initamount,jdbcType=DECIMAL}, 
+      #{discountamount,jdbcType=DECIMAL}, #{freightcharge,jdbcType=DECIMAL}, #{totalamount,jdbcType=DECIMAL}, 
+      #{modeofpayment,jdbcType=VARCHAR}, #{isenabled,jdbcType=VARCHAR}, #{inputdate,jdbcType=TIMESTAMP}, 
+      #{updatedate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo">
+    insert into shopping_order_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customerid != null">
+        customerid,
+      </if>
+      <if test="initamount != null">
+        initamount,
+      </if>
+      <if test="discountamount != null">
+        discountamount,
+      </if>
+      <if test="freightcharge != null">
+        freightcharge,
+      </if>
+      <if test="totalamount != null">
+        totalamount,
+      </if>
+      <if test="modeofpayment != null">
+        modeofpayment,
+      </if>
+      <if test="isenabled != null">
+        isenabled,
+      </if>
+      <if test="inputdate != null">
+        inputdate,
+      </if>
+      <if test="updatedate != null">
+        updatedate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="customerid != null">
+        #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="initamount != null">
+        #{initamount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountamount != null">
+        #{discountamount,jdbcType=DECIMAL},
+      </if>
+      <if test="freightcharge != null">
+        #{freightcharge,jdbcType=DECIMAL},
+      </if>
+      <if test="totalamount != null">
+        #{totalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="modeofpayment != null">
+        #{modeofpayment,jdbcType=VARCHAR},
+      </if>
+      <if test="isenabled != null">
+        #{isenabled,jdbcType=VARCHAR},
+      </if>
+      <if test="inputdate != null">
+        #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo">
+    update shopping_order_info
+    <set>
+      <if test="customerid != null">
+        customerid = #{customerid,jdbcType=BIGINT},
+      </if>
+      <if test="initamount != null">
+        initamount = #{initamount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountamount != null">
+        discountamount = #{discountamount,jdbcType=DECIMAL},
+      </if>
+      <if test="freightcharge != null">
+        freightcharge = #{freightcharge,jdbcType=DECIMAL},
+      </if>
+      <if test="totalamount != null">
+        totalamount = #{totalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="modeofpayment != null">
+        modeofpayment = #{modeofpayment,jdbcType=VARCHAR},
+      </if>
+      <if test="isenabled != null">
+        isenabled = #{isenabled,jdbcType=VARCHAR},
+      </if>
+      <if test="inputdate != null">
+        inputdate = #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo">
+    update shopping_order_info
+    set customerid = #{customerid,jdbcType=BIGINT},
+      initamount = #{initamount,jdbcType=DECIMAL},
+      discountamount = #{discountamount,jdbcType=DECIMAL},
+      freightcharge = #{freightcharge,jdbcType=DECIMAL},
+      totalamount = #{totalamount,jdbcType=DECIMAL},
+      modeofpayment = #{modeofpayment,jdbcType=VARCHAR},
+      isenabled = #{isenabled,jdbcType=VARCHAR},
+      inputdate = #{inputdate,jdbcType=TIMESTAMP},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

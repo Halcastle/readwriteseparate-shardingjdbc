@@ -2,17 +2,21 @@ package com.example.readwriteseparateshardingjdbc.mapper;
 
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingCustomerInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Mapper
+//@Component
 public interface ShoppingCustomerInfoMapper {
 
 	List<ShoppingCustomerInfo> findAll();
-	
-	ShoppingCustomerInfo findBySerialno(String id);
 
-	int insertCustomer(ShoppingCustomerInfo customerInfo);
+	ShoppingCustomerInfo findBySerialno(Long id);
 
-	int updateCustomerBySerialno(ShoppingCustomerInfo customerInfo);
+	ShoppingCustomerInfo findByCertId(String certId);
+
+	Long insertCustomer(ShoppingCustomerInfo customerInfo);
+
+	Long updateCustomerByCustomerInfo(ShoppingCustomerInfo customerInfo);
 }

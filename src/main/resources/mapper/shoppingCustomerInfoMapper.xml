@@ -7,12 +7,15 @@
     <select id="findBySerialno" parameterType="String" resultType="ShoppingCustomerInfo">
         SELECT * FROM shopping_customer_info where id = #{id}
     </select>
+    <select id="findByCertId" parameterType="String" resultType="ShoppingCustomerInfo">
+        SELECT * FROM shopping_customer_info where certid = #{certId}
+    </select>
 
-    <insert id="insertCustomer" parameterType="ShoppingCustomerInfo">
-        insert into shopping_customer_info(name,gender,phone,address,photourl,status) value (#{name},#{gender},#{phone},#{address},#{photourl},#{status})
+    <insert id="insertCustomer" parameterType="ShoppingCustomerInfo" keyProperty="id" useGeneratedKeys="true">
+        insert into shopping_customer_info(id,name,gender,phone,address,photourl,status) value (#{id},#{name},#{gender},#{phone},#{address},#{photourl},#{status})
     </insert>
 
-    <update id="updateCustomerBySerialno" parameterType="ShoppingCustomerInfo">
+    <update id="updateCustomerByCustomerInfo" parameterType="ShoppingCustomerInfo">
     update shopping_customer_info
     set
     name = #{name},

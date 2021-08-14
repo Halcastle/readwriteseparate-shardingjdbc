@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.readwriteseparateshardingjdbc.mapper.ShoppingCommodityInfoMapper">
+  <resultMap id="BaseResultMap" type="ShoppingCommodityInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="classify" jdbcType="VARCHAR" property="classify" />
+    <result column="repertorynum" jdbcType="VARCHAR" property="repertorynum" />
+    <result column="purchaseprice" jdbcType="DECIMAL" property="purchaseprice" />
+    <result column="offeringprice" jdbcType="DECIMAL" property="offeringprice" />
+    <result column="isenabled" jdbcType="VARCHAR" property="isenabled" />
+    <result column="inputdate" jdbcType="TIMESTAMP" property="inputdate" />
+    <result column="updatedate" jdbcType="TIMESTAMP" property="updatedate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, `describe`, classify, repertorynum, purchaseprice, offeringprice, isenabled,
+    inputdate, updatedate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_commodity_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shopping_commodity_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="ShoppingCommodityInfo">
+    insert into shopping_commodity_info (id, name, describe, 
+      classify, repertorynum, purchaseprice, 
+      offeringprice, isenabled, inputdate, 
+      updatedate)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
+      #{classify,jdbcType=VARCHAR}, #{repertorynum,jdbcType=VARCHAR}, #{purchaseprice,jdbcType=DECIMAL}, 
+      #{offeringprice,jdbcType=DECIMAL}, #{isenabled,jdbcType=VARCHAR}, #{inputdate,jdbcType=TIMESTAMP}, 
+      #{updatedate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="ShoppingCommodityInfo">
+    insert into shopping_commodity_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="describe != null">
+        describe,
+      </if>
+      <if test="classify != null">
+        classify,
+      </if>
+      <if test="repertorynum != null">
+        repertorynum,
+      </if>
+      <if test="purchaseprice != null">
+        purchaseprice,
+      </if>
+      <if test="offeringprice != null">
+        offeringprice,
+      </if>
+      <if test="isenabled != null">
+        isenabled,
+      </if>
+      <if test="inputdate != null">
+        inputdate,
+      </if>
+      <if test="updatedate != null">
+        updatedate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="repertorynum != null">
+        #{repertorynum,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseprice != null">
+        #{purchaseprice,jdbcType=DECIMAL},
+      </if>
+      <if test="offeringprice != null">
+        #{offeringprice,jdbcType=DECIMAL},
+      </if>
+      <if test="isenabled != null">
+        #{isenabled,jdbcType=VARCHAR},
+      </if>
+      <if test="inputdate != null">
+        #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="ShoppingCommodityInfo">
+    update shopping_commodity_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        describe = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        classify = #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="repertorynum != null">
+        repertorynum = #{repertorynum,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseprice != null">
+        purchaseprice = #{purchaseprice,jdbcType=DECIMAL},
+      </if>
+      <if test="offeringprice != null">
+        offeringprice = #{offeringprice,jdbcType=DECIMAL},
+      </if>
+      <if test="isenabled != null">
+        isenabled = #{isenabled,jdbcType=VARCHAR},
+      </if>
+      <if test="inputdate != null">
+        inputdate = #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ShoppingCommodityInfo">
+    update shopping_commodity_info
+    set name = #{name,jdbcType=VARCHAR},
+      describe = #{describe,jdbcType=VARCHAR},
+      classify = #{classify,jdbcType=VARCHAR},
+      repertorynum = #{repertorynum,jdbcType=VARCHAR},
+      purchaseprice = #{purchaseprice,jdbcType=DECIMAL},
+      offeringprice = #{offeringprice,jdbcType=DECIMAL},
+      isenabled = #{isenabled,jdbcType=VARCHAR},
+      inputdate = #{inputdate,jdbcType=TIMESTAMP},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

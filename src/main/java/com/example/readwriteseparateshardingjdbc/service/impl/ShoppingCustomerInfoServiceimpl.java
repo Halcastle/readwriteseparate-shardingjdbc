@@ -20,18 +20,23 @@ public class ShoppingCustomerInfoServiceimpl implements IShoppingCustomerInfoSer
 	}
 
 	@Override
-	public ShoppingCustomerInfo findBySerialno(String id) {
+	public ShoppingCustomerInfo findBySerialno(Long id) {
 		return customerInfoMapper.findBySerialno(id);
 	}
 
 	@Override
-	public int insertCustomer(ShoppingCustomerInfo customerInfo) {
+	public ShoppingCustomerInfo findByCertId(String certId) {
+		return customerInfoMapper.findByCertId(certId);
+	}
+
+	@Override
+	public Long insertCustomer(ShoppingCustomerInfo customerInfo) {
 		return customerInfoMapper.insertCustomer(customerInfo);
 	}
 
 	@Override
-	public int updateCustomerBySerialno(ShoppingCustomerInfo customerInfo) {
-		return customerInfoMapper.updateCustomerBySerialno(customerInfo);
+	public Long updateCustomerByCustomerInfo(ShoppingCustomerInfo customerInfo) {
+		return customerInfoMapper.updateCustomerByCustomerInfo(customerInfo);
 	}
 
 }

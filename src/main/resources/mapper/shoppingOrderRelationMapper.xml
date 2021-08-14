@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.readwriteseparateshardingjdbc.mapper.ShoppingOrderRelationMapper">
+  <resultMap id="BaseResultMap" type="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="orderserialno" jdbcType="BIGINT" property="orderserialno" />
+    <result column="commodityid" jdbcType="BIGINT" property="commodityid" />
+    <result column="commoditycount" jdbcType="VARCHAR" property="commoditycount" />
+    <result column="inputdate" jdbcType="TIMESTAMP" property="inputdate" />
+    <result column="updatedate" jdbcType="TIMESTAMP" property="updatedate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, orderserialno, commodityid, commoditycount, inputdate, updatedate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_order_relation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shopping_order_relation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo">
+    insert into shopping_order_relation (id, orderserialno, commodityid, 
+      commoditycount, inputdate, updatedate
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderserialno,jdbcType=BIGINT}, #{commodityid,jdbcType=BIGINT}, 
+      #{commoditycount,jdbcType=VARCHAR}, #{inputdate,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo">
+    insert into shopping_order_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderserialno != null">
+        orderserialno,
+      </if>
+      <if test="commodityid != null">
+        commodityid,
+      </if>
+      <if test="commoditycount != null">
+        commoditycount,
+      </if>
+      <if test="inputdate != null">
+        inputdate,
+      </if>
+      <if test="updatedate != null">
+        updatedate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderserialno != null">
+        #{orderserialno,jdbcType=BIGINT},
+      </if>
+      <if test="commodityid != null">
+        #{commodityid,jdbcType=BIGINT},
+      </if>
+      <if test="commoditycount != null">
+        #{commoditycount,jdbcType=VARCHAR},
+      </if>
+      <if test="inputdate != null">
+        #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo">
+    update shopping_order_relation
+    <set>
+      <if test="orderserialno != null">
+        orderserialno = #{orderserialno,jdbcType=BIGINT},
+      </if>
+      <if test="commodityid != null">
+        commodityid = #{commodityid,jdbcType=BIGINT},
+      </if>
+      <if test="commoditycount != null">
+        commoditycount = #{commoditycount,jdbcType=VARCHAR},
+      </if>
+      <if test="inputdate != null">
+        inputdate = #{inputdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo">
+    update shopping_order_relation
+    set orderserialno = #{orderserialno,jdbcType=BIGINT},
+      commodityid = #{commodityid,jdbcType=BIGINT},
+      commoditycount = #{commoditycount,jdbcType=VARCHAR},
+      inputdate = #{inputdate,jdbcType=TIMESTAMP},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

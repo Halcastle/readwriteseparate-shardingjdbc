@@ -9,9 +9,11 @@ public interface IShoppingCustomerInfoService {
 
 	List<ShoppingCustomerInfo> findAll();
 	
-	ShoppingCustomerInfo findBySerialno(String id);
+	ShoppingCustomerInfo findBySerialno(Long id);
 
-	int insertCustomer(ShoppingCustomerInfo customerInfo);
+	ShoppingCustomerInfo findByCertId(String certId);
 
-	int updateCustomerBySerialno(ShoppingCustomerInfo customerInfo);
+	Long insertCustomer(ShoppingCustomerInfo customerInfo);
+
+	Long updateCustomerByCustomerInfo(ShoppingCustomerInfo customerInfo);
 }
