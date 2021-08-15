@@ -6,6 +6,7 @@ import com.example.readwriteseparateshardingjdbc.entity.ShoppingCommodityInfo;
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingCustomerInfo;
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo;
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
  * @Version 1.0
  **/
 @Service
+@Log4j2
 public class BuyCommodityService {
     @Autowired
     OrderService orderService;
@@ -37,10 +39,25 @@ public class BuyCommodityService {
         JSONArray commotityList = json.getJSONArray("commotityList");
         //插入客戶表
         Long customerId = null;
-        if(null == customerService.findCustomerByCertId(customerInfo.getCertid())){
+        String certid = customerInfo.getCertid();
+        log.info("begin--根据客户身份证号：{}查询客户信息",certid);
+        ShoppingCustomerInfo customer_db = customerService.findCustomerByCertId(certid);
+        log.info("end--根据客户身份证号：{}查询客户信息完成：{}",certid,customer_db);
+        if(null == customer_db){
+            log.info("begin--生成客户信息：{}",customerInfo);
             customerId = customerService.generateCustomer(customerInfo);
+            log.info("end--生成客户信息完成：{}",customerInfo);
         }else{
+            Long id = customer_db.getId();
+            customerInfo.setId(id);
+            if("1".equals(customer_db.getStatus())){
+                customerInfo.setStatus("2");
+            }else {
+                customerInfo.setStatus("1");
+            }
+            log.info("begin--更新客户信息：{}",customerInfo);
             customerId = customerService.updateCustomerByCustomerInfo(customerInfo);
+            log.info("end--更新客户信息完成：{}",customerInfo);
         }
         //插入订单表及订单关联表
         commotityList.stream().map((com)->{
@@ -48,7 +65,9 @@ public class BuyCommodityService {
         }).forEach((commotityJson)->{
             Long commotityId = commotityJson.getLong("commotityId");
             Long commotityNumber = commotityJson.getLong("commotityNumber");
+            log.info("begin--根据商品id：{}查询商品信息",commotityId);
             ShoppingCommodityInfo commodityInfo = commotityService.findId(commotityId);
+            log.info("end--根据商品id：{}查询商品信息完成：{}",commotityId,commodityInfo);
             BigDecimal orderTotalAmt = commodityInfo.getOfferingprice().multiply(BigDecimal.valueOf(commotityNumber));
             ShoppingOrderInfo orderInfo = new ShoppingOrderInfo();
             orderInfo.setId(null);
@@ -59,14 +78,20 @@ public class BuyCommodityService {
             orderInfo.setTotalamount(orderTotalAmt);
             orderInfo.setModeofpayment("1");
             orderInfo.setIsenabled("1");
-            Long orderId = orderService.generateOrder(orderInfo);
+            log.info("begin--生成订单：{}",orderInfo);
+            orderService.generateOrder(orderInfo);
+            log.info("end--生成订单完成：{}",orderInfo);
+            Long orderId = orderInfo.getId();
 
-            //插入订单关联表
+                    //插入订单关联表
             ShoppingOrderRelationInfo orderRelationInfo = new ShoppingOrderRelationInfo();
             orderRelationInfo.setId(null);
             orderRelationInfo.setOrderserialno(orderId);
             orderRelationInfo.setCommodityid(commotityId);
             orderRelationInfo.setCommoditycount(commotityNumber);
+            log.info("begin--生成关联信息：{}",orderRelationInfo);
+            orderRelationService.generateOrderRelationService(orderRelationInfo);
+            log.info("begin--生成关联信息完成：{}",orderRelationInfo);
         });
 
 

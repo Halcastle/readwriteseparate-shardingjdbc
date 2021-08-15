@@ -39,4 +39,14 @@ public class ShoppingCustomerInfoServiceimpl implements IShoppingCustomerInfoSer
 		return customerInfoMapper.updateCustomerByCustomerInfo(customerInfo);
 	}
 
+	@Override
+	public void insertCustomersBatch(List<ShoppingCustomerInfo> customerInfos) {
+
+	}
+
+	@Override
+	public void insertCustomerBatch(ShoppingCustomerInfo customerInfo) {
+		customerInfoMapper.insertCustomerBatch(customerInfo);
+	}
+
 }

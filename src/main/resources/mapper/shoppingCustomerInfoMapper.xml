@@ -12,20 +12,69 @@
     </select>
 
     <insert id="insertCustomer" parameterType="ShoppingCustomerInfo" keyProperty="id" useGeneratedKeys="true">
-        insert into shopping_customer_info(id,name,gender,phone,address,photourl,status) value (#{id},#{name},#{gender},#{phone},#{address},#{photourl},#{status})
+        insert into shopping_customer_info(id,name,certid,gender,phone,address,photourl,status) value (#{id},#{name},#{certid},#{gender},#{phone},#{address},#{photourl},#{status})
     </insert>
 
-    <update id="updateCustomerByCustomerInfo" parameterType="ShoppingCustomerInfo">
-    update shopping_customer_info
-    set
-    name = #{name},
-    gender = #{gender},
-    address = #{address},
-    photourl = #{photourl},
-    status = #{status}
-    where
-    id = #{id}
-</update>
+    <insert id="insertCustomersBatch" parameterType="java.util.List" useGeneratedKeys="true">
+        insert into shopping_customer_info (id,name,certid,gender,phone,address,photourl,status) values
+<!--        <foreach collection="list" item="item" index="index" open="("  separator="," close=")">-->
+        <foreach collection="list" item="item" index="index"  separator=",">
+            (
+            #{item.id},
+            #{item.name},
+            #{item.certid},
+            #{item.gender},
+            #{item.phone},
+            #{item.address},
+            #{item.photourl},
+            #{item.status}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertCustomerBatch" parameterType="ShoppingCustomerInfo" useGeneratedKeys="true">
+        insert into shopping_customer_info(id,name,certid,gender,phone,address,photourl,status) value (#{id},#{name},#{certid},#{gender},#{phone},#{address},#{photourl},#{status})
+    </insert>
+<!--    <update id="updateCustomerByCustomerInfo" parameterType="ShoppingCustomerInfo"  keyProperty="id" useGeneratedKeys="true">-->
+<!--    update shopping_customer_info-->
+<!--    set-->
+<!--    name = #{name},-->
+<!--    certid = #{certid},-->
+<!--    gender = #{gender},-->
+<!--    address = #{address},-->
+<!--    photourl = #{photourl},-->
+<!--    status = #{status}-->
+<!--    where-->
+<!--    id = #{id}-->
+<!--</update>-->
+
+    <update id="updateCustomerByCustomerInfo" parameterType="ShoppingCustomerInfo" keyProperty="id" useGeneratedKeys="true">
+        update shopping_customer_info
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="certid != null">
+                certid = #{certid,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="photourl != null">
+                photourl = #{photourl,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>
 
 <!-- 

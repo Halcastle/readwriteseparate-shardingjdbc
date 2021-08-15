@@ -18,5 +18,9 @@ public interface ShoppingCustomerInfoMapper {
 
 	Long insertCustomer(ShoppingCustomerInfo customerInfo);
 
+	void insertCustomersBatch(List<ShoppingCustomerInfo> customerInfos);
+
+	void insertCustomerBatch(ShoppingCustomerInfo customerInfo);
+
 	Long updateCustomerByCustomerInfo(ShoppingCustomerInfo customerInfo);
 }

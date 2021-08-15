@@ -1,28 +1,17 @@
 {
   "commotityList": [
     {
-      "commotityId": 5,
-      "commotityNumber": 2
-    },
-    {
       "commotityId": 3,
       "commotityNumber": 1
-    },
-    {
-      "commotityId": 5,
-      "commotityNumber": 5
-    },
-    {
-      "commotityId": 2,
-      "commotityNumber": 10
     }
   ],
   "customerInfo": {
-    "address": "address1",
+    "address": "address3",
+    "certid": "2",
     "gender": "1",
-    "name": "客户1",
+    "name": "客户3",
     "phone": "17809266135",
-    "photourl": "./1",
+    "photourl": "./3",
     "status": "1"
   }
 }

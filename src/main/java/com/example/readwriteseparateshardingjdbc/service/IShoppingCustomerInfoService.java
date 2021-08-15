@@ -16,4 +16,8 @@ public interface IShoppingCustomerInfoService {
 	Long insertCustomer(ShoppingCustomerInfo customerInfo);
 
 	Long updateCustomerByCustomerInfo(ShoppingCustomerInfo customerInfo);
+
+	void insertCustomersBatch(List<ShoppingCustomerInfo> customerInfos);
+
+	void insertCustomerBatch(ShoppingCustomerInfo customerInfo);
 }

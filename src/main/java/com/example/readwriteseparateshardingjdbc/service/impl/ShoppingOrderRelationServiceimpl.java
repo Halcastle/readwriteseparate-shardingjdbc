@@ -20,7 +20,7 @@ public class ShoppingOrderRelationServiceimpl implements IShoppingOrderRelationS
 
 	@Override
 	public int insert(ShoppingOrderRelationInfo record) {
-		return 0;
+		return shoppingOrderRelationMapper.insert(record);
 	}
 
 	@Override
