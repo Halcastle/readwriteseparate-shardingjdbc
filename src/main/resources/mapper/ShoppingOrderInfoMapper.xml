@@ -35,6 +35,26 @@
       #{discountamount,jdbcType=DECIMAL}, #{freightcharge,jdbcType=DECIMAL}, #{totalamount,jdbcType=DECIMAL}, 
       #{modeofpayment,jdbcType=VARCHAR}, #{isenabled,jdbcType=VARCHAR})
   </insert>
+
+  <insert id="insertOrdersBatch" parameterType="java.util.List" useGeneratedKeys="true">
+    insert into shopping_order_info (id, customerid, initamount,
+    discountamount, freightcharge, totalamount,
+    modeofpayment, isenabled) values
+    <!--        <foreach collection="list" item="item" index="index" open="("  separator="," close=")">-->
+    <foreach collection="list" item="item" index="index"  separator=",">
+      (
+      #{item.id},
+      #{item.customerid},
+      #{item.initamount},
+      #{item.discountamount},
+      #{item.freightcharge},
+      #{item.totalamount},
+      #{item.modeofpayment},
+      #{item.isenabled}
+      )
+    </foreach>
+  </insert>
+
   <insert id="insertSelective" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo">
     insert into shopping_order_info
     <trim prefix="(" suffix=")" suffixOverrides=",">

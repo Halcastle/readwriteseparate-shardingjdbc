@@ -1,8 +1,11 @@
 package com.example.readwriteseparateshardingjdbc.mapper;
 
+import com.example.readwriteseparateshardingjdbc.entity.ShoppingCustomerInfo;
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Mapper
 public interface ShoppingOrderInfoMapper {
@@ -17,4 +20,6 @@ public interface ShoppingOrderInfoMapper {
     int updateByPrimaryKeySelective(ShoppingOrderInfo record);
 
     int updateByPrimaryKey(ShoppingOrderInfo record);
+
+    void insertOrdersBatch(List<ShoppingOrderInfo> orderInfos);
 }

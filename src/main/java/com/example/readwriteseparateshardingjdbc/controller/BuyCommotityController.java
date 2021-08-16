@@ -3,6 +3,8 @@ package com.example.readwriteseparateshardingjdbc.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingCustomerInfo;
+import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo;
+import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo;
 import com.example.readwriteseparateshardingjdbc.service.BuyCommodityService;
 import com.example.readwriteseparateshardingjdbc.service.MockBuyService;
 import com.example.readwriteseparateshardingjdbc.service.OrderRelationService;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -67,7 +70,7 @@ public class BuyCommotityController {
         return "完成请求。";
     }
 
-    @RequestMapping(value = "/mock/{number}")
+    @RequestMapping(value = "/mockCustomer/{number}")
     public void mockBatchInsterController(@PathVariable(name = "number") int number) {
         //插入客户表
         int size = 1000;
@@ -110,6 +113,104 @@ public class BuyCommotityController {
         }
         if(customerInfos.size()>0){
             mockBuyService.mockBatchInsterCustomers(customerInfos);
+        }
+
+        long end = System.currentTimeMillis();
+        log.info("结束时间：{}", end);
+        log.info("耗时：{}", end - start);
+        log.info("共提交：{}条", _tmp);
+        //插入订单表
+        //插入订单关联表
+    }
+
+    @RequestMapping(value = "/mockOrder/{number}")
+    public void mockOrderBatchInsterController(@PathVariable(name = "number") int number) {
+        //插入客户表
+        int size = 1000;
+        long start = System.currentTimeMillis();
+        log.info("开始时间：{}", start);
+        List<ShoppingOrderInfo> orderInfos = new ArrayList<>();
+        int tmp = number;
+        int _tmp = 0;
+        while (tmp > size) {
+            for (int i = 0; i < size; i++) {
+                ShoppingOrderInfo orderInfo = new ShoppingOrderInfo();
+                orderInfo.setId(null);
+                orderInfo.setCustomerid(1L);
+                orderInfo.setInitamount(BigDecimal.TEN);
+                orderInfo.setDiscountamount(BigDecimal.ZERO);
+                orderInfo.setFreightcharge(BigDecimal.ZERO);
+                orderInfo.setTotalamount(BigDecimal.TEN);
+                orderInfo.setModeofpayment("1");
+                orderInfo.setIsenabled("1");
+                orderInfos.add(orderInfo);
+                _tmp++;
+            }
+            mockBuyService.mockBatchInsterOrders(orderInfos);
+            orderInfos.clear();
+            tmp = tmp - size;
+        }
+        orderInfos.clear();
+        for (int i = 0; i < tmp; i++) {
+            ShoppingOrderInfo orderInfo = new ShoppingOrderInfo();
+            orderInfo.setId(null);
+            orderInfo.setCustomerid(1L);
+            orderInfo.setInitamount(BigDecimal.ONE);
+            orderInfo.setDiscountamount(BigDecimal.ZERO);
+            orderInfo.setFreightcharge(BigDecimal.ZERO);
+            orderInfo.setTotalamount(BigDecimal.ONE);
+            orderInfo.setModeofpayment("1");
+            orderInfo.setIsenabled("1");
+            orderInfos.add(orderInfo);
+            _tmp++;
+        }
+        if(orderInfos.size()>0){
+            mockBuyService.mockBatchInsterOrders(orderInfos);
+        }
+
+        long end = System.currentTimeMillis();
+        log.info("结束时间：{}", end);
+        log.info("耗时：{}", end - start);
+        log.info("共提交：{}条", _tmp);
+        //插入订单表
+        //插入订单关联表
+    }
+
+    @RequestMapping(value = "/mockOrderRelation/{number}")
+    public void mockOrderRelationBatchInsterController(@PathVariable(name = "number") int number) {
+        //插入客户表
+        int size = 1000;
+        long start = System.currentTimeMillis();
+        log.info("开始时间：{}", start);
+        List<ShoppingOrderRelationInfo> orderRelationInfos = new ArrayList<>();
+        int tmp = number;
+        int _tmp = 0;
+        while (tmp > size) {
+            for (int i = 0; i < size; i++) {
+                ShoppingOrderRelationInfo orderRelationInfo = new ShoppingOrderRelationInfo();
+                orderRelationInfo.setId(null);
+                orderRelationInfo.setOrderserialno(1L);
+                orderRelationInfo.setCommodityid(1L);
+                orderRelationInfo.setCommoditycount(10L);
+                orderRelationInfos.add(orderRelationInfo);
+                _tmp++;
+            }
+            mockBuyService.mockBatchInsterOrderRelations(orderRelationInfos);
+            orderRelationInfos.clear();
+            tmp = tmp - size;
+        }
+        orderRelationInfos.clear();
+        for (int i = 0; i < tmp; i++) {
+            ShoppingOrderRelationInfo orderRelationInfo = new ShoppingOrderRelationInfo();
+            orderRelationInfo.setId(null);
+            orderRelationInfo.setOrderserialno(1L);
+            orderRelationInfo.setCommodityid(1L);
+            orderRelationInfo.setCommoditycount(10L);
+            orderRelationInfos.add(orderRelationInfo);
+            _tmp++;
+        }
+        if(orderRelationInfos.size()>0){
+            mockBuyService.mockBatchInsterOrderRelations(orderRelationInfos);
         }
 
         long end = System.currentTimeMillis();

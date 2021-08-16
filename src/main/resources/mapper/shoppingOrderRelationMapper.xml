@@ -30,6 +30,22 @@
       #{commoditycount,jdbcType=VARCHAR}
       )
   </insert>
+
+  <insert id="insertOrderRelationsBatch" parameterType="java.util.List" useGeneratedKeys="true">
+    insert into shopping_order_relation (id, orderserialno, commodityid,
+    commoditycount
+    ) values
+    <!--        <foreach collection="list" item="item" index="index" open="("  separator="," close=")">-->
+    <foreach collection="list" item="item" index="index"  separator=",">
+      (
+      #{item.id},
+      #{item.orderserialno},
+      #{item.commodityid},
+      #{item.commoditycount}
+      )
+    </foreach>
+  </insert>
+
   <insert id="insertSelective" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo">
     insert into shopping_order_relation
     <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -6,6 +6,8 @@ import com.example.readwriteseparateshardingjdbc.service.IShoppingOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShoppingOrderServiceimpl implements IShoppingOrderService {
 
@@ -41,5 +43,10 @@ public class ShoppingOrderServiceimpl implements IShoppingOrderService {
 	@Override
 	public int updateByPrimaryKey(ShoppingOrderInfo record) {
 		return 0;
+	}
+
+	@Override
+	public void insertOrdersBatch(List<ShoppingOrderInfo> orderInfos) {
+		shoppingOrderInfoMapper.insertOrdersBatch(orderInfos);
 	}
 }

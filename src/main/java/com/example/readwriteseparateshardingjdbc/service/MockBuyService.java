@@ -1,7 +1,11 @@
 package com.example.readwriteseparateshardingjdbc.service;
 
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingCustomerInfo;
+import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo;
+import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo;
 import com.example.readwriteseparateshardingjdbc.mapper.ShoppingCustomerInfoMapper;
+import com.example.readwriteseparateshardingjdbc.mapper.ShoppingOrderInfoMapper;
+import com.example.readwriteseparateshardingjdbc.mapper.ShoppingOrderRelationMapper;
 import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -31,6 +35,44 @@ public class MockBuyService {
         try{
             log.warn("try中customerInfos.size:{}",customerInfos.size());
             mapper.insertCustomersBatch(customerInfos);
+            sqlSession.commit();
+            sqlSession.clearCache();
+        }catch (Exception e){
+            log.warn(e);
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+            log.warn("sqlsession关闭！");
+        }
+
+    }
+
+    public void mockBatchInsterOrders(List<ShoppingOrderInfo> orderInfos){
+        SqlSession sqlSession = sqlSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH, false);
+        ShoppingOrderInfoMapper mapper = sqlSession.getMapper(ShoppingOrderInfoMapper.class);
+        try{
+            log.warn("try中orderInfos.size:{}",orderInfos.size());
+            mapper.insertOrdersBatch(orderInfos);
+            sqlSession.commit();
+            sqlSession.clearCache();
+        }catch (Exception e){
+            log.warn(e);
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+            log.warn("sqlsession关闭！");
+        }
+
+    }
+
+    public void mockBatchInsterOrderRelations(List<ShoppingOrderRelationInfo> orderRelationInfos){
+        SqlSession sqlSession = sqlSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH, false);
+        ShoppingOrderRelationMapper mapper = sqlSession.getMapper(ShoppingOrderRelationMapper.class);
+        try{
+            log.warn("try中orderInfos.size:{}",orderRelationInfos.size());
+            mapper.insertOrderRelationsBatch(orderRelationInfos);
             sqlSession.commit();
             sqlSession.clearCache();
         }catch (Exception e){

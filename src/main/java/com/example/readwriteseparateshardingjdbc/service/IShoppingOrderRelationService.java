@@ -3,6 +3,8 @@ package com.example.readwriteseparateshardingjdbc.service;
 
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo;
 
+import java.util.List;
+
 public interface IShoppingOrderRelationService {
 
 	int deleteByPrimaryKey(Long id);
@@ -16,4 +18,6 @@ public interface IShoppingOrderRelationService {
 	int updateByPrimaryKeySelective(ShoppingOrderRelationInfo record);
 
 	int updateByPrimaryKey(ShoppingOrderRelationInfo record);
+
+	void insertOrderRelationsBatch(List<ShoppingOrderRelationInfo> orderInfos);
 }
