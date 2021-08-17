@@ -82,7 +82,7 @@ public class BuyCommotityController {
         while (tmp > size) {
             for (int i = 0; i < size; i++) {
                 ShoppingCustomerInfo customerInfo = new ShoppingCustomerInfo();
-                customerInfo.setId(null);
+//                customerInfo.setId(null);
                 customerInfo.setName("客户mock");
                 customerInfo.setGender("1");
                 customerInfo.setCertid("610424199609126592");
@@ -100,7 +100,7 @@ public class BuyCommotityController {
         customerInfos.clear();
         for (int i = 0; i < tmp; i++) {
             ShoppingCustomerInfo customerInfo = new ShoppingCustomerInfo();
-            customerInfo.setId(null);
+//            customerInfo.setId(null);
             customerInfo.setName("客户mock");
             customerInfo.setGender("1");
             customerInfo.setCertid("610424199609126592");

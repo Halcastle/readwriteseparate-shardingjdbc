@@ -16,26 +16,27 @@
     </insert>
 
     <insert id="insertCustomersBatch" parameterType="java.util.List" useGeneratedKeys="true">
-        insert into shopping_customer_info (id,name,certid,gender,phone,address,photourl,status) values
+<!--         insert into shopping_customer_info (id,name,certid,gender,phone,address,photourl,status) values-->
+        insert into shopping_customer_info (name,certid,gender,phone,address,photourl,status) values
 <!--        <foreach collection="list" item="item" index="index" open="("  separator="," close=")">-->
         <foreach collection="list" item="item" index="index"  separator=",">
             (
-            #{item.id},
-            #{item.name},
-            #{item.certid},
-            #{item.gender},
-            #{item.phone},
-            #{item.address},
-            #{item.photourl},
-            #{item.status}
-            )
-        </foreach>
-    </insert>
+    <!--             #{item.id},-->
+                #{item.name},
+                #{item.certid},
+                #{item.gender},
+                #{item.phone},
+                #{item.address},
+                #{item.photourl},
+                #{item.status}
+                )
+            </foreach>
+        </insert>
 
-    <insert id="insertCustomerBatch" parameterType="ShoppingCustomerInfo" useGeneratedKeys="true">
-        insert into shopping_customer_info(id,name,certid,gender,phone,address,photourl,status) value (#{id},#{name},#{certid},#{gender},#{phone},#{address},#{photourl},#{status})
-    </insert>
-<!--    <update id="updateCustomerByCustomerInfo" parameterType="ShoppingCustomerInfo"  keyProperty="id" useGeneratedKeys="true">-->
+        <insert id="insertCustomerBatch" parameterType="ShoppingCustomerInfo" useGeneratedKeys="true">
+            insert into shopping_customer_info(id,name,certid,gender,phone,address,photourl,status) value (#{id},#{name},#{certid},#{gender},#{phone},#{address},#{photourl},#{status})
+        </insert>
+    <!--    <update id="updateCustomerByCustomerInfo" parameterType="ShoppingCustomerInfo"  keyProperty="id" useGeneratedKeys="true">-->
 <!--    update shopping_customer_info-->
 <!--    set-->
 <!--    name = #{name},-->
