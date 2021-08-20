@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
   *@Version 1.0
   **/
 @Log4j2
-public class ComplexShardingAlgorithm implements ComplexKeysShardingAlgorithm {
+public class ComplexTableShardingAlgorithm implements ComplexKeysShardingAlgorithm {
 
     @Override
     public Collection<String> doSharding(Collection availableTargetNames, ComplexKeysShardingValue shardingValue) {

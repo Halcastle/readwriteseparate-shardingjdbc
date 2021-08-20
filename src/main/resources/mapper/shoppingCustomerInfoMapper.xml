@@ -49,9 +49,13 @@
 <!--    id = #{id}-->
 <!--</update>-->
 
-    <update id="updateCustomerByCustomerInfo" parameterType="ShoppingCustomerInfo" keyProperty="id" useGeneratedKeys="true">
+<!--    <update id="updateCustomerByCustomerInfo" parameterType="ShoppingCustomerInfo" keyProperty="id" useGeneratedKeys="true">-->
+    <update id="updateCustomerByCustomerInfo" parameterType="ShoppingCustomerInfo">
         update shopping_customer_info
         <set>
+            <if test="id != null">
+                id = #{id,jdbcType=BIGINT},
+            </if>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
             </if>
@@ -74,7 +78,7 @@
                 status = #{status,jdbcType=VARCHAR},
             </if>
         </set>
-        where id = #{id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT} and certid = #{certid,jdbcType=VARCHAR}
     </update>
 </mapper>
 
