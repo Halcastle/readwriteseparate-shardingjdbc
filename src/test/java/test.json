@@ -1,17 +1,16 @@
-{
-  "commotityList": [
-    {
-      "commotityId": 3,
-      "commotityNumber": 1
-    }
-  ],
-  "customerInfo": {
-    "address": "address3",
-    "certid": "2",
-    "gender": "1",
-    "name": "客户3",
-    "phone": "17809266135",
-    "photourl": "./3",
-    "status": "1"
+[
+  {
+    "columnName": "order_id",
+    "logicTableName": "t_new_order",
+    "values": [
+      "OD010001011903261549424993200011"
+    ]
+  },
+  {
+    "columnName": "user_id",
+    "logicTableName": "t_new_order",
+    "values": [
+      "UD030001011903261549424973200007"
+    ]
   }
-}
+]

@@ -28,10 +28,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo" keyProperty="id" useGeneratedKeys="true">
-    insert into shopping_order_info (id, customerid, initamount, 
+    insert into shopping_order_info (customerid, initamount,
       discountamount, freightcharge, totalamount, 
       modeofpayment, isenabled)
-    values (#{id,jdbcType=BIGINT}, #{customerid,jdbcType=BIGINT}, #{initamount,jdbcType=DECIMAL}, 
+    values (#{customerid,jdbcType=BIGINT}, #{initamount,jdbcType=DECIMAL},
       #{discountamount,jdbcType=DECIMAL}, #{freightcharge,jdbcType=DECIMAL}, #{totalamount,jdbcType=DECIMAL}, 
       #{modeofpayment,jdbcType=VARCHAR}, #{isenabled,jdbcType=VARCHAR})
   </insert>

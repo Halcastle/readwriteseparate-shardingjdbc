@@ -12,7 +12,7 @@
     </select>
 
     <insert id="insertCustomer" parameterType="ShoppingCustomerInfo" keyProperty="id" useGeneratedKeys="true">
-        insert into shopping_customer_info(id,name,certid,gender,phone,address,photourl,status) value (#{id},#{name},#{certid},#{gender},#{phone},#{address},#{photourl},#{status})
+        insert into shopping_customer_info(name,certid,gender,phone,address,photourl,status) value (#{name},#{certid},#{gender},#{phone},#{address},#{photourl},#{status})
     </insert>
 
     <insert id="insertCustomersBatch" parameterType="java.util.List" useGeneratedKeys="true">

@@ -23,10 +23,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo">
-    insert into shopping_order_relation (id, orderserialno, commodityid, 
+    insert into shopping_order_relation (orderserialno, commodityid,
       commoditycount
       )
-    values (#{id,jdbcType=BIGINT}, #{orderserialno,jdbcType=BIGINT}, #{commodityid,jdbcType=BIGINT}, 
+    values (#{orderserialno,jdbcType=BIGINT}, #{commodityid,jdbcType=BIGINT},
       #{commoditycount,jdbcType=VARCHAR}
       )
   </insert>
