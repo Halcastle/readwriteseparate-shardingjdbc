@@ -7,8 +7,11 @@ import com.example.readwriteseparateshardingjdbc.entity.ShoppingCustomerInfo;
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderInfo;
 import com.example.readwriteseparateshardingjdbc.entity.ShoppingOrderRelationInfo;
 import lombok.extern.log4j.Log4j2;
+import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
+import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -34,7 +37,9 @@ public class BuyCommodityService {
     @Autowired
     CommotityService commotityService;
 
-    public void buyCommodity(JSONObject json){
+    @Transactional
+    @ShardingTransactionType(TransactionType.XA)  // 支持TransactionType.LOCAL, TransactionType.XA, TransactionType.BASE
+    public void buyCommodity(JSONObject json) {
         ShoppingCustomerInfo customerInfo = json.getObject("customerInfo",ShoppingCustomerInfo.class);
         JSONArray commotityList = json.getJSONArray("commotityList");
         //插入客戶表
@@ -79,14 +84,20 @@ public class BuyCommodityService {
             orderInfo.setModeofpayment("1");
             orderInfo.setIsenabled("1");
             log.info("begin--生成订单：{}",orderInfo);
-            orderService.generateOrder(orderInfo);
+            try {
+                orderService.generateOrder(orderInfo);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("接收到订单处理异常");
+            }
             log.info("end--生成订单完成：{}",orderInfo);
             Long orderId = orderInfo.getId();
 
                     //插入订单关联表
             ShoppingOrderRelationInfo orderRelationInfo = new ShoppingOrderRelationInfo();
             orderRelationInfo.setId(null);
-            orderRelationInfo.setOrderserialno(orderId);
+//            orderRelationInfo.setOrderserialno(orderId);
+            orderRelationInfo.setOrderserialno(999L);
             orderRelationInfo.setCommodityid(commotityId);
             orderRelationInfo.setCommoditycount(commotityNumber);
             log.info("begin--生成关联信息：{}",orderRelationInfo);

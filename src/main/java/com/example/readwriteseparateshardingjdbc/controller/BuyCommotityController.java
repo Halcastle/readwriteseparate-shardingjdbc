@@ -38,7 +38,7 @@ public class BuyCommotityController {
     MockBuyService mockBuyService;
 
     @RequestMapping(value = "/write/{number}", method = RequestMethod.GET)
-    public String writeNumber(@PathVariable(name = "number") int number) {
+    public String writeNumber(@PathVariable(name = "number") int number)  throws Exception{
         Random random = new Random();
         Random commotityRandom = new Random();
         JSONObject resultJson = new JSONObject();
@@ -59,7 +59,11 @@ public class BuyCommotityController {
             final int no = i;
             executorService.execute(() -> {
                 log.info("线程{}start", Thread.currentThread().getName());
-                buyCommotity(number, random, commotityRandom, resultJson);
+                try {
+                    buyCommotity(number, random, commotityRandom, resultJson);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 log.info("线程{}end", Thread.currentThread().getName());
             });
         }
@@ -243,8 +247,8 @@ public class BuyCommotityController {
             commotitys.add(commotityListJson);
         }
         resultJson.put("commotityList", commotitys);
-        log.info("begin--购买请求开始处理：{}" + resultJson);
+        log.info("begin--购买请求开始处理：{}",resultJson);
         buyCommodityService.buyCommodity(resultJson);
-        log.info("end--购买请求处理完成：{}" + resultJson);
+        log.info("end--购买请求处理完成：{}",resultJson);
     }
 }

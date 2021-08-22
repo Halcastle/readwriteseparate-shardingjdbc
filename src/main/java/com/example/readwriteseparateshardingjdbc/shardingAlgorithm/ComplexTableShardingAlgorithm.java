@@ -8,10 +8,8 @@ import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingAlgorit
 import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingValue;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.math.BigInteger;
+import java.util.*;
 import java.util.stream.Collectors;
 //https://www.cnblogs.com/rinack/p/11241111.html
 /**
@@ -27,43 +25,26 @@ public class ComplexTableShardingAlgorithm implements ComplexKeysShardingAlgorit
 
     @Override
     public Collection<String> doSharding(Collection availableTargetNames, ComplexKeysShardingValue shardingValue) {
-        // 1. 打印物理分表集合 及 分片键属性集合
         log.info("availableTargetNames:" + JSON.toJSONString(availableTargetNames) + ",ComplexKeysShardingValue:" + shardingValue);
-
-        // availableTargetNames:["t_new_order_0000","t_new_order_0001"],
-        // shardingValues:[{"columnName":"order_id","logicTableName":"t_new_order","values":["OD010001011903261549424993200011"]},{"columnName":"user_id","logicTableName":"t_new_order","values":["UD030001011903261549424973200007"]}]
-//        Collection<String> collection = new ArrayList<>();
-//        // 2. 遍历分片键集合
-//        for (ShardingValue var : shardingValues) {
-//            // 2.1 逻辑与分库逻辑相同，转换ShardingValue为ListShardingValue
-//            ListShardingValue<String> listShardingValue = (ListShardingValue<String>)var;
-//            List<String> shardingValue = (List<String>)listShardingValue.getValues();
-//            // 3. 打印当前分片键的真实值
-//            // shardingValue:["OD010001011903261549424993200011"]
-//            log.info("shardingValue:" + JSON.toJSONString(shardingValue));
-//
-//            // 4. 根据分片键的真实值获取数据分表索引值
-//            String index = getIndex(listShardingValue.getLogicTableName(),                              listShardingValue.getColumnName(),
-//                    shardingValue.get(0));
-//            // 5. 循环匹配数据表，通过String.endsWith(String suffix)
-//            // 判断第4步中获取到的索引是否包含在当前循环的物理分表中，
-//            // （如：判断t_new_order_0000中是否包含“_0000”）
-//            // 从而证明当前数据匹配物理分表成功。
-//            for (String availableTargetName : availableTargetNames) {
-//                if (availableTargetName.endsWith("_" + index)) {
-//                    collection.add(availableTargetName);
-//                    break;
-//                }
-//            }
-//            // 6. 只要匹配成功一种路由规则就退出
-//            if (collection.size() > 0) {
-//                break;
-//            }
-//        }
-//        // 7. 返回表路由结果
-//        return collection;
+//        availableTargetNames:["shopping_customer_info0","shopping_customer_info1","shopping_customer_info2","shopping_customer_info3"]
+//        ComplexKeysShardingValue:ComplexKeysShardingValue(logicTableName=shopping_customer_info, columnNameAndShardingValuesMap={certid=[0], id=[635611807121145856]}, columnNameAndRangeValuesMap={})
+//        ComplexKeysShardingValue:ComplexKeysShardingValue(logicTableName=shopping_customer_info, columnNameAndShardingValuesMap={certid=[0]}, columnNameAndRangeValuesMap={})
+        Integer datasourcelength = availableTargetNames.size();
         Collection<String> collection = new ArrayList<>();
-        collection.add("shopping_customer_info0");
+        Map columnNameAndShardingValuesMap = shardingValue.getColumnNameAndShardingValuesMap();
+        BigInteger value = null;
+        List certid = (List) columnNameAndShardingValuesMap.get("certid");
+        value = new BigInteger((String) certid.get(0));
+        if (null != value) {
+            BigInteger[] bigIntegers = value.divideAndRemainder(BigInteger.valueOf(datasourcelength));
+            collection.add("shopping_customer_info" + bigIntegers[1].toString());
+            return collection;
+        }
+        List id = (List) columnNameAndShardingValuesMap.get("id");
+        value = new BigInteger((String) certid.get(0));
+        BigInteger[] bigIntegers = value.divideAndRemainder(BigInteger.valueOf(datasourcelength));
+        collection.add("shopping_customer_info" + bigIntegers[1].toString());
         return collection;
+
     }
 }
